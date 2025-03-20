@@ -2,12 +2,26 @@
 
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button } from '@shadcn/ui/button';
 import { AppLayout } from '@/components/layout/app-layout';
-import { supabase } from '@/utils/supabase';
-import { Tables } from '@/utils/supabase';
+import { createClient } from '@supabase/supabase-js';
 import { useAuth } from '@/context/auth-context';
-import { ShoppingCart } from 'lucide-react';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+type Tables = {
+  products: {
+    id: string;
+    tenant_id: string;
+    name: string;
+    price: number;
+    description?: string;
+  };
+};
+
 
 type Product = Tables['products'];
 
